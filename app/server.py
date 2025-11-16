@@ -8,17 +8,31 @@ from dotenv import load_dotenv
 from rich.console import Console
 from rich.panel import Panel
 
-# Import custom modules
-from app.crypto.aes import aes_encrypt, aes_decrypt
-from app.crypto.dh import DH_G, DH_P, generate_dh_private_key, compute_dh_public_key, compute_dh_shared_secret, derive_aes_key_from_dh
-from app.crypto.pki import (load_certificate_from_file, load_private_key_from_file, 
-                             validate_certificate_chain, get_certificate_fingerprint, certificate_to_pem, CertificateValidationError)
-from app.crypto.sign import rsa_sign, rsa_verify_from_cert
-from app.common.protocol import (HelloMessage, ServerHelloMessage, RegisterMessage, LoginMessage,
-                                 DHClientMessage, DHServerMessage, ChatMessage, SessionReceipt, StatusMessage, EncryptedPayload)
-from app.common.utils import now_ms, b64e, b64d, sha256_hex
-from app.storage.db import Database, compute_salted_hash
-from app.storage.transcript import Transcript, compute_message_digest
+# Import custom modules - support both relative and absolute imports
+try:
+    from app.crypto.aes import aes_encrypt, aes_decrypt
+    from app.crypto.dh import DH_G, DH_P, generate_dh_private_key, compute_dh_public_key, compute_dh_shared_secret, derive_aes_key_from_dh
+    from app.crypto.pki import (load_certificate_from_file, load_private_key_from_file, 
+                                 validate_certificate_chain, get_certificate_fingerprint, certificate_to_pem, CertificateValidationError)
+    from app.crypto.sign import rsa_sign, rsa_verify_from_cert
+    from app.common.protocol import (HelloMessage, ServerHelloMessage, RegisterMessage, LoginMessage,
+                                     DHClientMessage, DHServerMessage, ChatMessage, SessionReceipt, StatusMessage, EncryptedPayload)
+    from app.common.utils import now_ms, b64e, b64d, sha256_hex
+    from app.storage.db import Database, compute_salted_hash
+    from app.storage.transcript import Transcript, compute_message_digest
+except ModuleNotFoundError:
+    # Fallback to relative imports when running directly
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+    from crypto.aes import aes_encrypt, aes_decrypt
+    from crypto.dh import DH_G, DH_P, generate_dh_private_key, compute_dh_public_key, compute_dh_shared_secret, derive_aes_key_from_dh
+    from crypto.pki import (load_certificate_from_file, load_private_key_from_file, 
+                                 validate_certificate_chain, get_certificate_fingerprint, certificate_to_pem, CertificateValidationError)
+    from crypto.sign import rsa_sign, rsa_verify_from_cert
+    from common.protocol import (HelloMessage, ServerHelloMessage, RegisterMessage, LoginMessage,
+                                     DHClientMessage, DHServerMessage, ChatMessage, SessionReceipt, StatusMessage, EncryptedPayload)
+    from common.utils import now_ms, b64e, b64d, sha256_hex
+    from storage.db import Database, compute_salted_hash
+    from storage.transcript import Transcript, compute_message_digest
 
 # Load environment variables
 load_dotenv()
