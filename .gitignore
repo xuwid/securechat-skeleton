@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Secrets and certificates (DO NOT COMMIT)
+certs/*.key
+certs/*.pem
+*.key
+*.pem
+
+# Environment variables
+.env
+
+# Logs and transcripts
+transcripts/*.txt
+transcripts/*.log
+logs/
+*.transcript
+
+# Database
+*.db
+*.sqlite
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test outputs
+tests/output/
+*.pcap
+*.pcapng
